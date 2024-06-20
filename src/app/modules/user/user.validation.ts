@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const userSignupValidationSchema = z.object({
+export const userSignupValidationSchema = z.object({
   name: z.string().min(1, { message: 'Name is required.' }),
   email: z.string().email({ message: 'Invalid email address.' }),
   role: z.enum(['user', 'admin'], {
@@ -15,6 +15,6 @@ const userSignupValidationSchema = z.object({
   address: z.string().min(1, { message: 'Address is required.' }),
 });
 
-export const UserSignupValidation = {
-  userSignupValidationSchema,
-};
+// export const UserSignupValidation = {
+//   userSignupValidationSchema,
+// };

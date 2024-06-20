@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cors({ origin: ['http://localhost:5173'] }));
 
 // application routes
-// app.use("/api", router);
+app.use('/api', router);
 
 // const test = async (req: Request, res: Response) => {
 //   res.send('App is running');
