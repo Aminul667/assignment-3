@@ -6,10 +6,10 @@ import { userSignupValidationSchema } from './user.validation';
 
 const router = express.Router();
 
-router.post(
-  '/signup',
-  validateRequest(userSignupValidationSchema),
-  UserControllers.createUser,
-);
+// router.post(
+//   '/signup',
+//   validateRequest(userSignupValidationSchema),
+//   UserControllers.createUser,
+// );
 
 export const UserRoutes = router;
