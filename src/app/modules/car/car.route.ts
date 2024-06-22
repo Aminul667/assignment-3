@@ -24,4 +24,6 @@ router.patch(
   CarControllers.updateCar,
 );
 
+router.delete('/:id', CarControllers.deleteCar);
+
 export const CarRoutes = router;
