@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { CarServices } from './car.service';
+import { RequestHandler } from 'express';
 
 const createCar = catchAsync(async (req, res) => {
   const carData = req.body;
@@ -16,6 +17,46 @@ const createCar = catchAsync(async (req, res) => {
   });
 });
 
+const getAllCars: RequestHandler = catchAsync(async (req, res) => {
+  const result = await CarServices.getAllCarsFromDB();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Cars retrieved successfully',
+    data: result,
+  });
+});
+
+const getSingleCar: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
+  const result = await CarServices.getSingleCarFromDB(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'A Car retrieved successfully',
+    data: result,
+  });
+});
+
+// const updateStudent: RequestHandler = catchAsync(async (req, res) => {
+//   const { id } = req.params;
+//   const { student } = req.body;
+
+//   const result = await StudentServices.updateStudentIntoDB(id, student);
+
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: 'Student is updated successfully',
+//     data: result,
+//   });
+// });
+
 export const CarControllers = {
   createCar,
+  getAllCars,
+  getSingleCar,
 };
