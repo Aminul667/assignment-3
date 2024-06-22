@@ -16,8 +16,19 @@ const getSingleCarFromDB = async (id: string) => {
   return result;
 };
 
+const updateCarIntoDB = async (id: string, payload: Partial<TCar>) => {
+  console.log(payload);
+
+  const result = await Car.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
+  return result;
+};
+
 export const CarServices = {
   createCarIntoDB,
   getAllCarsFromDB,
   getSingleCarFromDB,
+  updateCarIntoDB,
 };

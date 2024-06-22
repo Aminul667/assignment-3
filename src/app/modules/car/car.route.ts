@@ -1,6 +1,9 @@
 import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
-import { carValidationSchema } from './car.validation';
+import {
+  carValidationSchema,
+  updateCarValidationSchema,
+} from './car.validation';
 import { CarControllers } from './car.controller';
 
 const router = express.Router();
@@ -14,5 +17,11 @@ router.post(
 router.get('/', CarControllers.getAllCars);
 
 router.get('/:id', CarControllers.getSingleCar);
+
+router.patch(
+  '/:id',
+  validateRequest(updateCarValidationSchema),
+  CarControllers.updateCar,
+);
 
 export const CarRoutes = router;

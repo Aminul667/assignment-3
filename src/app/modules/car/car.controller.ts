@@ -41,22 +41,23 @@ const getSingleCar: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-// const updateStudent: RequestHandler = catchAsync(async (req, res) => {
-//   const { id } = req.params;
-//   const { student } = req.body;
+const updateCar: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const car = req.body;
 
-//   const result = await StudentServices.updateStudentIntoDB(id, student);
+  const result = await CarServices.updateCarIntoDB(id, car);
 
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Student is updated successfully',
-//     data: result,
-//   });
-// });
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Car updated successfully',
+    data: result,
+  });
+});
 
 export const CarControllers = {
   createCar,
   getAllCars,
   getSingleCar,
+  updateCar,
 };
