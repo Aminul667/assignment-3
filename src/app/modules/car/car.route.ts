@@ -5,6 +5,7 @@ import {
   updateCarValidationSchema,
 } from './car.validation';
 import { CarControllers } from './car.controller';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post(
   CarControllers.createCar,
 );
 
-router.get('/', CarControllers.getAllCars);
+router.get('/', auth('user'), CarControllers.getAllCars);
 
 router.get('/:id', CarControllers.getSingleCar);
 
