@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { TBooking } from './bookCar.interface';
+import { string } from 'zod';
 
 const carBookingSchema = new Schema<TBooking>({
   carId: {
@@ -8,7 +9,7 @@ const carBookingSchema = new Schema<TBooking>({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
   startTime: {
