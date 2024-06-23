@@ -13,4 +13,10 @@ router.post(
   CarBookingControllers.createCarBooking,
 );
 
+router.get(
+  '/my-bookings',
+  auth('user'),
+  CarBookingControllers.getAllUserBookings,
+);
+
 export const BookingRoutes = router;

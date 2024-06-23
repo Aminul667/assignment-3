@@ -3,18 +3,13 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { CarBookingServices } from './bookCar.service';
 import { User } from '../user/user.model';
+import { RequestHandler } from 'express';
 
 const createCarBooking = catchAsync(async (req, res) => {
   const carData = req.body;
   const { userId } = req.user;
 
   const carBookingData = { ...carData, user: userId.toString() };
-
-  console.log('test', carBookingData);
-
-  // const userData = await User.findOne({ email: userEmail });
-  // console.log(userData);
-  // const carBookingData = { ...data, user: userEmail };
 
   const result =
     await CarBookingServices.createCarBookingIntoDB(carBookingData);
@@ -27,6 +22,22 @@ const createCarBooking = catchAsync(async (req, res) => {
   });
 });
 
+const getAllUserBookings: RequestHandler = catchAsync(async (req, res) => {
+  const { userId } = req.user;
+  const result = await CarBookingServices.getAllUserBookingFromDB(
+    userId.toString(),
+  );
+  console.log('test', userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Cars retrieved successfully',
+    data: result,
+  });
+});
+
 export const CarBookingControllers = {
   createCarBooking,
+  getAllUserBookings,
 };
