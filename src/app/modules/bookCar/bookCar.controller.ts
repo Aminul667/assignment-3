@@ -37,7 +37,22 @@ const getAllUserBookings: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const updateReturnCarTime: RequestHandler = catchAsync(async (req, res) => {
+  // const { id } = req.params;
+  const car = req.body;
+
+  const result = await CarBookingServices.updateReturnCarTimeIntoDB(car);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Car returned successfully',
+    data: result,
+  });
+});
+
 export const CarBookingControllers = {
   createCarBooking,
   getAllUserBookings,
+  updateReturnCarTime,
 };

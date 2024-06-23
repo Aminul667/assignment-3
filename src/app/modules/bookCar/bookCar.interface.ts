@@ -8,3 +8,8 @@ export interface TBooking {
   carId: Types.ObjectId;
   totalCost: number;
 }
+
+export interface TCarReturn {
+  bookingId: Types.ObjectId;
+  endTime: string;
+}

@@ -6,6 +6,8 @@ import {
 } from './car.validation';
 import { CarControllers } from './car.controller';
 import auth from '../../middlewares/auth';
+import { carBookingValidations } from '../bookCar/bookCar.validation';
+import { CarBookingControllers } from '../bookCar/bookCar.controller';
 
 const router = express.Router();
 
@@ -26,5 +28,11 @@ router.patch(
 );
 
 router.delete('/:id', CarControllers.deleteCar);
+
+router.post(
+  '/return',
+  validateRequest(carBookingValidations.carReturnValidationSchema),
+  CarBookingControllers.updateReturnCarTime,
+);
 
 export const CarRoutes = router;
