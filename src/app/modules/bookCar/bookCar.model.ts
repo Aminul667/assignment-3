@@ -3,11 +3,6 @@ import { TBooking } from './bookCar.interface';
 import { string } from 'zod';
 
 const carBookingSchema = new Schema<TBooking>({
-  carId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Car',
-    required: true,
-  },
   date: {
     type: String,
     required: true,
@@ -16,14 +11,19 @@ const carBookingSchema = new Schema<TBooking>({
     type: String,
     required: true,
   },
+  endTime: {
+    type: String,
+    default: null,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  endTime: {
-    type: String,
-    default: null,
+  carId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Car',
+    required: true,
   },
   totalCost: {
     type: Number,

@@ -14,7 +14,7 @@ const createCarBookingIntoDB = async (payload: TBooking) => {
       model: 'User',
       select: '-password -createdAt -updatedAt -__v',
     })
-    .populate('carId')
+    .populate({ path: 'carId', model: 'Car', select: '-__v' })
     .exec();
   return populatedResult;
 };
