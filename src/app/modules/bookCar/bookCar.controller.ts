@@ -42,7 +42,7 @@ const getAllMyBookings: RequestHandler = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Cars retrieved successfully',
+    message: 'My Bookings retrieved successfully',
     data: result,
   });
 });

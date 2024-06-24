@@ -3,6 +3,7 @@ import validateRequest from '../../middlewares/validateRequest';
 import { carBookingValidations } from './bookCar.validation';
 import { CarBookingControllers } from './bookCar.controller';
 import auth from '../../middlewares/auth';
+import { USER_ROLE } from '../user/user.constant';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post(
   CarBookingControllers.createCarBooking,
 );
 
-router.get('/', auth('user'), CarBookingControllers.getAllBookings);
+router.get('/', auth(USER_ROLE.admin), CarBookingControllers.getAllBookings);
 
 router.get(
   '/my-bookings',

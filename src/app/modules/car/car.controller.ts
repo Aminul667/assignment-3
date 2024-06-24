@@ -11,7 +11,7 @@ const createCar = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: 'Car is created successfully',
+    message: 'Car created successfully',
     data: result,
   });
 });
