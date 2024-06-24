@@ -7,21 +7,24 @@ import config from '../../config';
 
 const signInUser = async (payload: TSignInUser) => {
   // checking if the user is exist
-  const user = await User.isUserExistsByEmail(payload.email);
+  const userData = await User.isUserExistsByEmail(payload.email);
 
-  if (!user) {
+  if (!userData) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
   }
 
+  const { password, ...user } = userData;
+  console.log(user);
+
   //checking if the password is correct
 
-  if (!(await User.isPasswordMatched(payload?.password, user?.password)))
+  if (!(await User.isPasswordMatched(payload?.password, userData?.password)))
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
 
   //create token and sent to the  client
   const jwtPayload = {
-    userEmail: user.email,
-    role: user.role,
+    userEmail: userData.email,
+    role: userData.role,
   };
 
   const accessToken = createToken(

@@ -58,7 +58,7 @@ userSignupSchema.post('save', function (doc, next) {
 });
 
 userSignupSchema.statics.isUserExistsByEmail = async function (email: string) {
-  return await User.findOne({ email }).select('+password');
+  return await User.findOne({ email }).select('+password').lean();
 };
 
 userSignupSchema.statics.isPasswordMatched = async function (
