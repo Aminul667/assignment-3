@@ -31,6 +31,7 @@ router.delete('/:id', CarControllers.deleteCar);
 
 router.post(
   '/return',
+  auth('user'),
   validateRequest(carBookingValidations.carReturnValidationSchema),
   CarBookingControllers.updateReturnCarTime,
 );

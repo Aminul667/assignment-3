@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import { Car } from '../car/car.model';
 import { TBooking, TCarReturn } from './bookCar.interface';
 import { CarBooking } from './bookCar.model';
@@ -21,7 +22,29 @@ const createCarBookingIntoDB = async (payload: TBooking) => {
   return populatedResult;
 };
 
-const getAllUserBookingFromDB = async (userId: string) => {
+const getAllBookingsFromDB = async (query: Record<string, unknown>) => {
+  const bookingSearchableFields = ['carId', 'date'];
+
+  const bookingQuery = new QueryBuilder(
+    CarBooking.find()
+      .populate({
+        path: 'user',
+        model: 'User',
+        select: '-password -createdAt -updatedAt -__v',
+      })
+      .populate({
+        path: 'carId',
+        model: 'Car',
+        select: '-__v',
+      }),
+    query,
+  ).filter();
+
+  const result = await bookingQuery.modelQuery;
+  return result;
+};
+
+const getAllMyBookingsFromDB = async (userId: string) => {
   console.log(userId);
   const result = await CarBooking.find({ user: userId })
     .populate({
@@ -103,6 +126,7 @@ const updateReturnCarTimeIntoDB = async (payload: Partial<TCarReturn>) => {
 
 export const CarBookingServices = {
   createCarBookingIntoDB,
-  getAllUserBookingFromDB,
+  getAllMyBookingsFromDB,
   updateReturnCarTimeIntoDB,
+  getAllBookingsFromDB,
 };

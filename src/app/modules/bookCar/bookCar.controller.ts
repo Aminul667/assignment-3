@@ -2,7 +2,6 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { CarBookingServices } from './bookCar.service';
-import { User } from '../user/user.model';
 import { RequestHandler } from 'express';
 
 const createCarBooking = catchAsync(async (req, res) => {
@@ -22,9 +21,20 @@ const createCarBooking = catchAsync(async (req, res) => {
   });
 });
 
-const getAllUserBookings: RequestHandler = catchAsync(async (req, res) => {
+const getAllBookings: RequestHandler = catchAsync(async (req, res) => {
+  const result = await CarBookingServices.getAllBookingsFromDB(req.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Bookings retrieved successfully',
+    data: result,
+  });
+});
+
+const getAllMyBookings: RequestHandler = catchAsync(async (req, res) => {
   const { userId } = req.user;
-  const result = await CarBookingServices.getAllUserBookingFromDB(
+  const result = await CarBookingServices.getAllMyBookingsFromDB(
     userId.toString(),
   );
   console.log('test', userId);
@@ -38,7 +48,6 @@ const getAllUserBookings: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const updateReturnCarTime: RequestHandler = catchAsync(async (req, res) => {
-  // const { id } = req.params;
   const car = req.body;
 
   const result = await CarBookingServices.updateReturnCarTimeIntoDB(car);
@@ -53,6 +62,7 @@ const updateReturnCarTime: RequestHandler = catchAsync(async (req, res) => {
 
 export const CarBookingControllers = {
   createCarBooking,
-  getAllUserBookings,
+  getAllMyBookings,
   updateReturnCarTime,
+  getAllBookings,
 };
