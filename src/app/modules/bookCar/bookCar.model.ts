@@ -31,5 +31,4 @@ const carBookingSchema = new Schema<TBooking>({
   },
 });
 
-// Create the booking model
 export const CarBooking = model<TBooking>('CarBooking', carBookingSchema);

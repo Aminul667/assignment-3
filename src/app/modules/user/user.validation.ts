@@ -16,7 +16,3 @@ export const userSignupValidationSchema = z.object({
     address: z.string().min(1, { message: 'Address is required.' }),
   }),
 });
-
-// export const UserSignupValidation = {
-//   userSignupValidationSchema,
-// };

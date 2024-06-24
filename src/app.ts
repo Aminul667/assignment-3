@@ -22,12 +22,7 @@ app.use(cors({ origin: ['http://localhost:5173'] }));
 // application routes
 app.use('/api', router);
 
-// const test = async (req: Request, res: Response) => {
-//   res.send('App is running');
-// };
-
-// app.get('/', test);
-
+// error handler
 app.use(globalErrorHandler);
 
 //Not Found

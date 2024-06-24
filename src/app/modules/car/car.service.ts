@@ -20,8 +20,6 @@ const getSingleCarFromDB = async (id: string) => {
 };
 
 const updateCarIntoDB = async (id: string, payload: Partial<TCar>) => {
-  console.log(payload);
-
   const result = await Car.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,

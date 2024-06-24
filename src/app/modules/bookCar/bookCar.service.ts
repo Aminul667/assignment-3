@@ -23,8 +23,6 @@ const createCarBookingIntoDB = async (payload: TBooking) => {
 };
 
 const getAllBookingsFromDB = async (query: Record<string, unknown>) => {
-  const bookingSearchableFields = ['carId', 'date'];
-
   const bookingQuery = new QueryBuilder(
     CarBooking.find()
       .populate({
@@ -83,8 +81,6 @@ const updateReturnCarTimeIntoDB = async (payload: Partial<TCarReturn>) => {
   }
 
   const pricePerHour = carData?.pricePerHour;
-
-  console.log(pricePerHour);
 
   // Calculate duration in hours
   const startDateTime = new Date(`${date}T${startTime}`);

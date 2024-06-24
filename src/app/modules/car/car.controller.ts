@@ -6,7 +6,6 @@ import { RequestHandler } from 'express';
 
 const createCar = catchAsync(async (req, res) => {
   const carData = req.body;
-
   const result = await CarServices.createCarIntoDB(carData);
 
   sendResponse(res, {
@@ -19,7 +18,6 @@ const createCar = catchAsync(async (req, res) => {
 
 const getAllCars: RequestHandler = catchAsync(async (req, res) => {
   const result = await CarServices.getAllCarsFromDB();
-  // console.log('test', req.user);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -31,7 +29,6 @@ const getAllCars: RequestHandler = catchAsync(async (req, res) => {
 
 const getSingleCar: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
-  console.log(req.params);
   const result = await CarServices.getSingleCarFromDB(id);
 
   sendResponse(res, {

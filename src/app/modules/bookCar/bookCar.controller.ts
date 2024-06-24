@@ -49,7 +49,6 @@ const getAllMyBookings: RequestHandler = catchAsync(async (req, res) => {
 
 const updateReturnCarTime: RequestHandler = catchAsync(async (req, res) => {
   const car = req.body;
-
   const result = await CarBookingServices.updateReturnCarTimeIntoDB(car);
 
   sendResponse(res, {
