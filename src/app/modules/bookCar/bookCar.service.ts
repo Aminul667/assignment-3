@@ -1,3 +1,4 @@
+import { Car } from '../car/car.model';
 import { TBooking, TCarReturn } from './bookCar.interface';
 import { CarBooking } from './bookCar.model';
 
@@ -36,12 +37,44 @@ const getAllUserBookingFromDB = async (userId: string) => {
   return result;
 };
 
-const updateReturnCarTimeIntoDB = async (payload: TCarReturn) => {
+const updateReturnCarTimeIntoDB = async (payload: Partial<TCarReturn>) => {
   const { bookingId, endTime } = payload;
+
+  const booking = await CarBooking.findById(bookingId)
+    .populate({
+      path: 'carId',
+      model: 'Car',
+      select: 'pricePerHour',
+    })
+    .exec();
+
+  if (!booking) {
+    throw new Error('Booking id is not found');
+  }
+
+  const { startTime, carId, date } = booking;
+  const carData = await Car.findById(carId);
+
+  if (!carData) {
+    throw new Error('Car is not found');
+  }
+
+  const pricePerHour = carData?.pricePerHour;
+
+  console.log(pricePerHour);
+
+  // Calculate duration in hours
+  const startDateTime = new Date(`${date}T${startTime}`);
+  const endDateTime = new Date(`${date}T${endTime}`);
+  const durationInHours =
+    (endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60);
+
+  // Calculate total cost
+  const totalCost = durationInHours * pricePerHour;
 
   const result = await CarBooking.findByIdAndUpdate(
     bookingId,
-    { $set: { endTime: endTime } },
+    { $set: { endTime: endTime, totalCost: totalCost } },
     {
       new: true,
       runValidators: true,
